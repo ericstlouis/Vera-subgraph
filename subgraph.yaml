@@ -1,0 +1,65 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Contract
+    network: mainnet
+    source:
+      address: "0xF411903cbC70a74d22900a5DE66A2dda66507255"
+      abi: Contract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - AuthorizedOperator
+        - Blocked
+        - Burned
+        - MintFinished
+        - Minted
+        - Paused
+        - RevokedOperator
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - Sent
+        - Transfer
+        - Unblocked
+        - Unpaused
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: AuthorizedOperator(indexed address,indexed address)
+          handler: handleAuthorizedOperator
+        - event: Blocked(address)
+          handler: handleBlocked
+        - event: Burned(indexed address,indexed address,uint256,bytes,bytes)
+          handler: handleBurned
+        - event: MintFinished()
+          handler: handleMintFinished
+        - event: Minted(indexed address,indexed address,uint256,bytes,bytes)
+          handler: handleMinted
+        - event: Paused(address)
+          handler: handlePaused
+        - event: RevokedOperator(indexed address,indexed address)
+          handler: handleRevokedOperator
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+        - event: Sent(indexed address,indexed address,indexed address,uint256,bytes,bytes)
+          handler: handleSent
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Unblocked(address)
+          handler: handleUnblocked
+        - event: Unpaused(address)
+          handler: handleUnpaused
+      file: ./src/contract.ts
